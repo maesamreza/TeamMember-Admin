@@ -114,13 +114,16 @@ function AuthProvider({ children }) {
 
   useEffect(() => {
     const initialize = async () => {
+      const AgentID = localStorage.getItem('AgentViewID')
       try {
         const accessToken = window.localStorage.getItem('accessToken');
 
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
-
-          const response = await axios.get('/api/account/my-account');
+          getallagent();
+          getallsaleman(AgentID);
+          getagentdetail(AgentID);
+          const response = await axios.get('/api/user');
           const { user } = response.data;
 
           dispatch({

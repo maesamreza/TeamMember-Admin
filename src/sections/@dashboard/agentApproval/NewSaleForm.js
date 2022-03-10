@@ -25,7 +25,7 @@ import { FormProvider, RHFSelect, RHFSwitch, RHFTextField, RHFUploadAvatar } fro
 export default function AddNewForm() {
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
-
+    const AgentID = localStorage.getItem('AgentViewID')
     const NewUserSchema = Yup.object().shape({
         firstName: Yup.string().required('FirstName is required'),
         lastName: Yup.string().required('LastName is required'),
@@ -52,7 +52,7 @@ export default function AddNewForm() {
             country: '',
             phone: '',
             state: '',
-            agentId: '',
+            agentId: AgentID,
           
         }),
 
@@ -164,7 +164,7 @@ export default function AddNewForm() {
                             <RHFTextField name="country" label="Country" />
                             <RHFTextField name="state" label="State" />
                             <RHFTextField name="phone" label="Phone" />
-                            <RHFTextField name="agentId" label="AgentID" />
+                           
                         </Box>
 
                         <Stack alignItems="flex-end" sx={{ mt: 3 }}>

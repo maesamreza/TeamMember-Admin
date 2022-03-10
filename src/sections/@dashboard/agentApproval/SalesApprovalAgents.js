@@ -1,7 +1,8 @@
 import { sentenceCase } from 'change-case';
 import { useState, useEffect } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink ,useNavigate} from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+
 
 // @mui
 import { useTheme } from '@mui/material/styles';
@@ -54,13 +55,15 @@ import { UserListHead, UserListToolbar, UserMoreMenu } from '../user/list';
 
 export default function SalesApproval() {
     const theme = useTheme();
+    const navigate = useNavigate();
     const { themeStretch } = useSettings();
     const { enqueueSnackbar } = useSnackbar();
     const { getallsaleman, salespersons } = useAuth();
-    const ID = localStorage.getItem('AgentViewID')
+    const [AgentID,setAgentID] = useState(localStorage.getItem('AgentViewID'))
+
     useEffect(() => {
         try {
-            getallsaleman(ID);
+            getallsaleman(AgentID);
             setData(salespersons)
         } catch (error) {
             console.log(error)
@@ -69,19 +72,24 @@ export default function SalesApproval() {
 
     const SalePersonID = async (e) => {
         const IDs = e;
-        const response = await axios.get(`api/approve/seller/${ID}/${IDs}`);
+        setAgentID(localStorage.getItem('AgentViewID'))
+        const response = await axios.get(`api/approve/seller/${IDs}/${AgentID}`);
         const { message } = response.data;
-        setData(salespersons)
         enqueueSnackbar(message);
+        getallsaleman(AgentID);
+        setData(salespersons)
+        navigate(PATH_DASHBOARD.general.saleApproval);
     }
     const SalePersonDeactivaID = async (e) => {
-        const ID = e;
-        const response = await axios.get(`api/deactive/agent/${ID}`);
+        const IDs = e;
+        setAgentID(localStorage.getItem('AgentViewID'))
+        const response = await axios.get(`api/deactive/seller/${IDs}/${AgentID}`);
         const { message } = response.data;
         // console.log(response.data)
         enqueueSnackbar(message);
-        setData(salespersons)
-        getallsaleman(ID);
+        getallsaleman(AgentID);
+        setData(salespersons);
+        navigate(PATH_DASHBOARD.general.saleApproval);
     }
     const columns = [
         {
@@ -157,14 +165,36 @@ export default function SalesApproval() {
             }
         },
         {
-            name: "Actions",
+            name: "is_active",
+            label: "Approve",
             options: {
-                customBodyRender: (row) => {
+                filter: true,
+                sort: true,
+                customBodyRender: (value, row) => {
+                   
                     return (
                         <>
-                            <Button size="small" variant="contained" style={{ margin: '10px' }} onClick={(e) => { SalePersonID(row.rowData[0]) }}>
-                                Apporve
-                            </Button>
+                            {row.rowData[9] === 1 ? 'Aprrove' : 'Deactive'}
+                        </>
+                    );
+                }
+            },
+        },
+        {
+            name: "Actions",
+            options: {
+                customBodyRender: (value, row) => {
+                    return (
+                        <>
+                        {row.rowData[9] === 1 ?
+                                <LoadingButton size="small" variant="contained" style={{ margin: '10px' }} onClick={(e) => { SalePersonDeactivaID(row.rowData[0]) }} >
+                                    Deactive
+                                </LoadingButton>
+                                :
+                                <LoadingButton size="small" variant="contained" style={{ margin: '10px' }} onClick={(e) => { SalePersonID(row.rowData[0]) }} >
+                                    Apporve
+                                </LoadingButton>}
+                            
                         </>
                     );
                 }

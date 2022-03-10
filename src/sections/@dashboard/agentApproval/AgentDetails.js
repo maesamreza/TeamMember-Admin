@@ -29,7 +29,6 @@ export default function AgentProfile() {
     const { enqueueSnackbar } = useSnackbar();
 
     const { agentdetail } = useAuth();
-    console.log(useAuth())
     return (
         <Grid container spacing={3}>
 
