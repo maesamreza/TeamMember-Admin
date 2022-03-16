@@ -85,7 +85,7 @@ export default function AddNewForm() {
 
                 <Grid item xs={12} md={12}>
                     <Typography variant='h6' color='common.white' >
-                        Add New Report
+                        Add New Agent
                     </Typography>
                     <Card sx={{ p: 3 }}>
                         <Box

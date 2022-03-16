@@ -1,9 +1,10 @@
 import { sentenceCase } from 'change-case';
+import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 // @mui
-import { useTheme } from '@mui/material/styles';
+import { useTheme, styled } from '@mui/material/styles';
 import {
     Card,
     Grid,
@@ -18,12 +19,23 @@ import {
     Typography,
     TableContainer,
     TablePagination,
-    Stack
+    Stack,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    Input,
+    Select,
+    Box,
+    Divider,
+    TextField,
 } from '@mui/material';
 import MUIDataTable from "mui-datatables";
 import { LoadingButton } from '@mui/lab';
 import { BsFillEyeFill, BsFillCheckCircleFill } from "react-icons/bs";
 import { FcApproval } from "react-icons/fc";
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 
@@ -48,6 +60,46 @@ import { UserListHead, UserListToolbar, UserMoreMenu } from '../user/list';
 
 
 // ----------------------------------------------------------------------
+
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+    '& .MuiDialogContent-root': {
+        padding: theme.spacing(2),
+    },
+    '& .MuiDialogActions-root': {
+        padding: theme.spacing(1),
+    },
+}));
+const InputStyle = styled(TextField)(({ theme }) => ({
+    padding: theme.spacing(0.1, 1),
+}));
+const BootstrapDialogTitle = (props) => {
+    const { children, onClose, ...other } = props;
+
+    return (
+        <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+            {children}
+            {onClose ? (
+                <IconButton
+                    aria-label="close"
+                    onClick={onClose}
+                    sx={{
+                        position: 'absolute',
+                        right: 8,
+                        top: 8,
+                        color: (theme) => theme.palette.grey[500],
+                    }}
+                >
+                    <CloseIcon />
+                </IconButton>
+            ) : null}
+        </DialogTitle>
+    );
+};
+
+BootstrapDialogTitle.propTypes = {
+    children: PropTypes.node,
+    onClose: PropTypes.func.isRequired,
+};
 
 
 export default function AgentApproval() {
@@ -91,6 +143,30 @@ export default function AgentApproval() {
         } catch (error) {
             console.error(error);
         }
+    }
+    const [open, setOpen] = useState(false);
+    const [LID, setLID] = useState('');
+    const [licenseCost, setLicenseCost] = useState('');
+    const [usableFor, setUsableFor] = useState('');
+
+    const handleClose = () => {
+        setOpen(false)
+    };
+    const OpenModal = (e) => {
+        setOpen(true);
+        const ID = e;
+        setLID(ID)
+    }
+    const CreateLicence = async () => {
+        const formData = new FormData;
+        formData.append('agent_id',LID);
+        formData.append('price',licenseCost);
+        formData.append('usableFor',usableFor);
+        const response = await axios.post(`api/license/create/${LID}`,formData);
+        const { message } = response.data;
+        enqueueSnackbar(message);
+        setOpen(false)
+
     }
     const columns = [
         {
@@ -139,15 +215,18 @@ export default function AgentApproval() {
                     return (
                         <>
                             {row.rowData[3] === 1 ?
-                                <LoadingButton size="small" variant="contained" style={{ margin: '10px' }} onClick={(e) => { AgentDeactivaID(row.rowData[0]) }} >
+                                <LoadingButton size="small" variant="outlined" style={{ margin: '10px' }} onClick={(e) => { AgentDeactivaID(row.rowData[0]) }} >
                                     Deactive
                                 </LoadingButton>
                                 :
-                                <LoadingButton size="small" variant="contained" style={{ margin: '10px' }} onClick={(e) => { AgentID(row.rowData[0]) }} >
+                                <LoadingButton size="small" variant="outlined" style={{ margin: '10px' }} onClick={(e) => { AgentID(row.rowData[0]) }} >
                                     Apporve
                                 </LoadingButton>}
-                            <LoadingButton size="small" variant="contained" onClick={(e) => { AgentViewID(row.rowData[0]) }}  >
-                                {`View`}
+                            <LoadingButton size="small" variant="outlined" onClick={(e) => { AgentViewID(row.rowData[0]) }}  >
+                                View
+                            </LoadingButton>
+                            <LoadingButton size="small" variant="outlined" onClick={(e) => { OpenModal(row.rowData[0]) }}  >
+                                Create Licence
                             </LoadingButton>
                         </>
                     );
@@ -198,6 +277,25 @@ export default function AgentApproval() {
                     </Card>
                 </Grid>
             </Container>
+            <BootstrapDialog
+                onClose={handleClose}
+                aria-labelledby="customized-dialog-title"
+                open={open}
+            >
+                <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+                    Create Licence
+                </BootstrapDialogTitle>
+                <DialogContent dividers>
+                    <InputStyle value={licenseCost} label='License Cost' onChange={(e) => { setLicenseCost(e.target.value) }} type="number"/>
+                    <InputStyle value={usableFor} label='Allowed SalesPerson' onChange={(e) => { setUsableFor(e.target.value) }} type="number"/>
+                </DialogContent>
+                <DialogActions>
+                    <Button autoFocus onClick={(e) => { CreateLicence() }}>
+                        Add Licence
+                    </Button>
+                </DialogActions>
+            </BootstrapDialog>
+
         </Page >
     );
 }
