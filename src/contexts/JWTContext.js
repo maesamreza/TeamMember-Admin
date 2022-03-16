@@ -11,8 +11,9 @@ const initialState = {
   isInitialized: false,
   user: null,
   agents: null,
-  agentdetail: null,
-  salespersons: null
+  agent: null,
+  salePersons: null,
+  notif:[]
 };
 
 const handlers = {
@@ -71,19 +72,27 @@ const handlers = {
     };
   },
   GETAGENTDETAIL: (state, action) => {
-    const { message, agentdetail } = action.payload;
+    const { message, agent } = action.payload;
     return {
       ...state,
       message,
-      agentdetail
+      agent
     };
   },
   GETALLSELLMAN: (state, action) => {
-    const { message, salespersons } = action.payload;
+    const { message, salePersons } = action.payload;
     return {
       ...state,
       message,
-      salespersons
+      salePersons
+    };
+  },
+  GETALLNOTIF: (state, action) => {
+    const { message, notif } = action.payload;
+    return {
+      ...state,
+      message,
+      notif
     };
   }
 };
@@ -101,6 +110,7 @@ const AuthContext = createContext({
   getallagent: () => Promise.resolve(),
   getagentdetail: () => Promise.resolve(),
   getallsaleman: () => Promise.resolve(),
+  getallnoti: () => Promise.resolve(),
 });
 
 // ----------------------------------------------------------------------
@@ -122,10 +132,11 @@ function AuthProvider({ children }) {
           setSession(accessToken);
           getallagent();
           getallsaleman(AgentID);
+          getallnoti();
           getagentdetail(AgentID);
           const response = await axios.get('/api/user');
-          const { user } = response.data;
-
+          const  user  = response.data;
+          
           dispatch({
             type: 'INITIALIZE',
             payload: {
@@ -228,23 +239,34 @@ function AuthProvider({ children }) {
   const getagentdetail = async (ID) => {
     console.log(ID)
     const response = await axios.get(`api/get/agent/details/${ID}`);
-    const { message, agentdetail } = response.data;
+    const { message, agent } = response.data;
     dispatch({
       type: 'GETAGENTDETAIL',
       payload: {
         message,
-        agentdetail,
+        agent,
       },
     });
   }
   const getallsaleman = async (ID) => {
     const response = await axios.get(`api/data/sellers/${ID}`);
-    const { message, salespersons } = response.data;
+    const { message, salePersons } = response.data;
     dispatch({
       type: 'GETALLSELLMAN',
       payload: {
         message,
-        salespersons,
+        salePersons,
+      },
+    });
+  }
+  const getallnoti = async () => {
+    const response = await axios.get(`api/admin/all/notification`);
+    const { message, notif } = response.data;
+    dispatch({
+      type: 'GETALLNOTIF',
+      payload: {
+        message,
+        notif,
       },
     });
   }
@@ -272,7 +294,8 @@ function AuthProvider({ children }) {
         verifypassword,
         getallagent,
         getagentdetail,
-        getallsaleman
+        getallsaleman,
+        getallnoti
       }}
     >
       {children}

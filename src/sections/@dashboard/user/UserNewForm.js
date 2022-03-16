@@ -219,11 +219,7 @@ export default function UserNewForm({ isEdit, currentUser }) {
 
               <RHFSelect name="country" label="Country" placeholder="Country">
                 <option value="" />
-                {countries.map((option) => (
-                  <option key={option.code} value={option.label}>
-                    {option.label}
-                  </option>
-                ))}
+                
               </RHFSelect>
 
               <RHFTextField name="state" label="State/Region" />

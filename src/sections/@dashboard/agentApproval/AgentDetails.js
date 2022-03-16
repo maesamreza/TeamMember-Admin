@@ -28,7 +28,7 @@ export default function AgentProfile() {
 
     const { enqueueSnackbar } = useSnackbar();
 
-    const { agentdetail } = useAuth();
+    const { agent } = useAuth();
     return (
         <Grid container spacing={3}>
 
@@ -43,10 +43,10 @@ export default function AgentProfile() {
                         }}
                     >
 
-                        <TextField label='Agent ID' value={agentdetail?.id} readonly />
-                        <TextField label='Agent Name' value={agentdetail?.name} readonly />
-                        <TextField label='Agent Email' value={agentdetail?.email} readonly />
-                        <TextField label='Agent State' value={agentdetail?.state} readonly />
+                        <TextField label='Agent ID' value={agent?.id} readonly />
+                        <TextField label='Agent Name' value={agent?.name} readonly />
+                        <TextField label='Agent Email' value={agent?.email} readonly />
+                        <TextField label='Agent State' value={agent?.state} readonly />
 
                     </Box>
 

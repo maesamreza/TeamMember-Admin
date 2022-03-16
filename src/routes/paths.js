@@ -38,6 +38,8 @@ export const PATH_DASHBOARD = {
     saleApproval: path(ROOTS_DASHBOARD, '/saleApproval'),
     addNewAgent: path(ROOTS_DASHBOARD, '/addAgent'),
     addNewSale: path(ROOTS_DASHBOARD, '/addSale'),
+    sendmail: path(ROOTS_DASHBOARD, '/sendmail'),
+    addmail: path(ROOTS_DASHBOARD, '/addmail'),
     ecommerce: path(ROOTS_DASHBOARD, '/ecommerce'),
     analytics: path(ROOTS_DASHBOARD, '/analytics'),
     banking: path(ROOTS_DASHBOARD, '/banking'),

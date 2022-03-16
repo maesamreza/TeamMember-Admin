@@ -58,13 +58,13 @@ export default function SalesApproval() {
     const navigate = useNavigate();
     const { themeStretch } = useSettings();
     const { enqueueSnackbar } = useSnackbar();
-    const { getallsaleman, salespersons } = useAuth();
+    const { getallsaleman, salePersons } = useAuth();
     const [AgentID,setAgentID] = useState(localStorage.getItem('AgentViewID'))
 
     useEffect(() => {
         try {
             getallsaleman(AgentID);
-            setData(salespersons)
+            setData(salePersons)
         } catch (error) {
             console.log(error)
         }
@@ -73,11 +73,11 @@ export default function SalesApproval() {
     const SalePersonID = async (e) => {
         const IDs = e;
         setAgentID(localStorage.getItem('AgentViewID'))
-        const response = await axios.get(`api/approve/seller/${IDs}/${AgentID}`);
+        const response = await axios.get(`api/approve/seller/${IDs}/${AgentID}?ignoreLicense=true`);
         const { message } = response.data;
         enqueueSnackbar(message);
         getallsaleman(AgentID);
-        setData(salespersons)
+        setData(salePersons)
         navigate(PATH_DASHBOARD.general.saleApproval);
     }
     const SalePersonDeactivaID = async (e) => {
@@ -88,7 +88,7 @@ export default function SalesApproval() {
         // console.log(response.data)
         enqueueSnackbar(message);
         getallsaleman(AgentID);
-        setData(salespersons);
+        setData(salePersons);
         navigate(PATH_DASHBOARD.general.saleApproval);
     }
     const columns = [

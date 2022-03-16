@@ -68,8 +68,8 @@ export default function Router() {
         { path: 'saleApproval', element: <SaleApproval /> },
         { path: 'addAgent', element: <AddNewAgent /> },
         { path: 'addSale', element: <AddNewSale /> },
-        { path: 'analytics', element: <GeneralAnalytics /> },
-        { path: 'banking', element: <GeneralBanking /> },
+        { path: 'sendmail', element: <SendMail /> },
+        { path: 'addmail', element: <AddNewMail /> },
         { path: 'booking', element: <GeneralBooking /> },
 
         {
@@ -170,8 +170,12 @@ const AgentApproval = Loadable(lazy(() => import('../pages/dashboard/AgentApprov
 const AddNewAgent = Loadable(lazy(() => import('../pages/dashboard/AddNewAgent')));
 const AddNewSale = Loadable(lazy(() => import('../pages/dashboard/AddNewSalesPerson')));
 const SaleApproval = Loadable(lazy(() => import('../pages/dashboard/SaleApproval')));
+const SendMail = Loadable(lazy(() => import('../pages/dashboard/SendMail')));
+
+
+
 const GeneralAnalytics = Loadable(lazy(() => import('../pages/dashboard/GeneralAnalytics')));
-const GeneralBanking = Loadable(lazy(() => import('../pages/dashboard/GeneralBanking')));
+const AddNewMail = Loadable(lazy(() => import('../pages/dashboard/AddNewMail')));
 const GeneralBooking = Loadable(lazy(() => import('../pages/dashboard/GeneralBooking')));
 const EcommerceShop = Loadable(lazy(() => import('../pages/dashboard/EcommerceShop')));
 const EcommerceProductDetails = Loadable(lazy(() => import('../pages/dashboard/EcommerceProductDetails')));
