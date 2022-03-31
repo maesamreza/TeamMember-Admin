@@ -153,19 +153,20 @@ export default function AgentApproval() {
         setOpen(false)
     };
     const OpenModal = (e) => {
-        setOpen(true);
+        // setOpen(true);
         const ID = e;
         setLID(ID)
+        CreateLicence();
     }
     const CreateLicence = async () => {
         const formData = new FormData;
-        formData.append('agent_id',LID);
-        formData.append('price',licenseCost);
-        formData.append('usableFor',usableFor);
-        const response = await axios.post(`api/license/create/${LID}`,formData);
+        formData.append('agent_id', LID);
+        formData.append('price', 69);
+        formData.append('usableFor', 1);
+        const response = await axios.post(`api/license/create/${LID}`, formData);
         const { message } = response.data;
         enqueueSnackbar(message);
-        setOpen(false)
+        // setOpen(false)
 
     }
     const columns = [
@@ -286,8 +287,8 @@ export default function AgentApproval() {
                     Create Licence
                 </BootstrapDialogTitle>
                 <DialogContent dividers>
-                    <InputStyle value={licenseCost} label='License Cost' onChange={(e) => { setLicenseCost(e.target.value) }} type="number"/>
-                    <InputStyle value={usableFor} label='Allowed SalesPerson' onChange={(e) => { setUsableFor(e.target.value) }} type="number"/>
+                    <InputStyle value={licenseCost} label='License Cost' onChange={(e) => { setLicenseCost(e.target.value) }} type="number" />
+                    <InputStyle value={usableFor} label='Allowed SalesPerson' onChange={(e) => { setUsableFor(e.target.value) }} type="number" />
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus onClick={(e) => { CreateLicence() }}>
