@@ -70,7 +70,7 @@ export default function Router() {
         { path: 'addSale', element: <AddNewSale /> },
         { path: 'sendmail', element: <SendMail /> },
         { path: 'addmail', element: <AddNewMail /> },
-        { path: 'booking', element: <GeneralBooking /> },
+        { path: 'salespackages', element: <SalesPackages /> },
 
         {
           path: 'e-commerce',
@@ -171,6 +171,7 @@ const AddNewAgent = Loadable(lazy(() => import('../pages/dashboard/AddNewAgent')
 const AddNewSale = Loadable(lazy(() => import('../pages/dashboard/AddNewSalesPerson')));
 const SaleApproval = Loadable(lazy(() => import('../pages/dashboard/SaleApproval')));
 const SendMail = Loadable(lazy(() => import('../pages/dashboard/SendMail')));
+const SalesPackages = Loadable(lazy(() => import('../pages/dashboard/CreatePackSales')));
 
 
 

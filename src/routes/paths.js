@@ -40,6 +40,7 @@ export const PATH_DASHBOARD = {
     addNewSale: path(ROOTS_DASHBOARD, '/addSale'),
     sendmail: path(ROOTS_DASHBOARD, '/sendmail'),
     addmail: path(ROOTS_DASHBOARD, '/addmail'),
+    salespackages: path(ROOTS_DASHBOARD, '/salespackages'),
     ecommerce: path(ROOTS_DASHBOARD, '/ecommerce'),
     analytics: path(ROOTS_DASHBOARD, '/analytics'),
     banking: path(ROOTS_DASHBOARD, '/banking'),

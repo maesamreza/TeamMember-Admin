@@ -13,7 +13,8 @@ const initialState = {
   agents: null,
   agent: null,
   salePersons: null,
-  notif:[]
+  notif:[],
+  packages:[]
 };
 
 const handlers = {
@@ -94,6 +95,14 @@ const handlers = {
       message,
       notif
     };
+  },
+   SALEPACK: (state, action) => {
+    const { message, packages } = action.payload;
+    return {
+      ...state,
+      message,
+      packages
+    };
   }
 };
 
@@ -111,6 +120,7 @@ const AuthContext = createContext({
   getagentdetail: () => Promise.resolve(),
   getallsaleman: () => Promise.resolve(),
   getallnoti: () => Promise.resolve(),
+  getallsalePack: () => Promise.resolve(),
 });
 
 // ----------------------------------------------------------------------
@@ -134,6 +144,7 @@ function AuthProvider({ children }) {
           getallsaleman(AgentID);
           getallnoti();
           getagentdetail(AgentID);
+          getallsalePack();
           const response = await axios.get('/api/user');
           const  user  = response.data;
           
@@ -270,7 +281,17 @@ function AuthProvider({ children }) {
       },
     });
   }
-
+  const getallsalePack = async (ID) => {
+    const response = await axios.get(`api/agent/license/all/package`);
+    const { message, packages } = response.data;
+    dispatch({
+      type: 'SALEPACK',
+      payload: {
+        message,
+        packages,
+      },
+    });
+  }
 
 
 
@@ -295,7 +316,8 @@ function AuthProvider({ children }) {
         getallagent,
         getagentdetail,
         getallsaleman,
-        getallnoti
+        getallnoti,
+        getallsalePack
       }}
     >
       {children}
