@@ -71,6 +71,7 @@ export default function Router() {
         { path: 'sendmail', element: <SendMail /> },
         { path: 'addmail', element: <AddNewMail /> },
         { path: 'salespackages', element: <SalesPackages /> },
+        { path: 'coupon', element: <Cuppon /> },
 
         {
           path: 'e-commerce',
@@ -172,6 +173,7 @@ const AddNewSale = Loadable(lazy(() => import('../pages/dashboard/AddNewSalesPer
 const SaleApproval = Loadable(lazy(() => import('../pages/dashboard/SaleApproval')));
 const SendMail = Loadable(lazy(() => import('../pages/dashboard/SendMail')));
 const SalesPackages = Loadable(lazy(() => import('../pages/dashboard/CreatePackSales')));
+const Cuppon = Loadable(lazy(() => import('../pages/dashboard/CreateCoupons')));
 
 
 

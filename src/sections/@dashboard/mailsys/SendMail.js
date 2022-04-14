@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 // @mui
 import { LoadingButton } from '@mui/lab';
 import { styled } from '@mui/material/styles';
-import { Container, Card, Box, Input, Select, Portal, Button, Divider, Backdrop, IconButton, Typography } from '@mui/material';
+import { Container, Card, Box, Input, Select, Portal, Button, Divider, Backdrop, IconButton, Typography, FormGroup, FormControlLabel, Checkbox } from '@mui/material';
 // redux
 import { useDispatch } from '../../../redux/store';
 import { getLabels } from '../../../redux/slices/mail';
@@ -62,6 +62,8 @@ export default function Mail() {
     const [day, setDay] = useState('');
     const [time, setTime] = useState('');
     const [messsage, setMessage] = useState('');
+    const [AgentMail, setAgentMail] = useState(false);
+    const [SaleMail, setSaleMail] = useState(false);
     const handleChangeDay = (value) => {
         setDay(value);
     };
@@ -78,8 +80,12 @@ export default function Mail() {
         formData.append("day", day)
         formData.append("time", time)
         formData.append("message", messsage)
-        formData.append("send[]", 'agent')
-        formData.append("send[]", 'seller')
+        if (AgentMail) {
+            formData.append("send[]", 'agent')
+        }
+        if (SaleMail) {
+            formData.append("send[]", 'seller')
+        }
 
         const response = await axios.post(`api/admin/add/notification`, formData);
         const { message } = response.data;
@@ -88,7 +94,7 @@ export default function Mail() {
 
     };
 
-   
+
 
     return (
         <Page title="Mail">
@@ -138,10 +144,10 @@ export default function Mail() {
 
                     <Divider />
 
-                    <InputStyle disableUnderline placeholder="Day" onChange={(e)=>{handleChangeDay(e.target.value)}} />
+                    <InputStyle disableUnderline placeholder="Day" onChange={(e) => { handleChangeDay(e.target.value) }} />
 
 
-                    <InputStyle disableUnderline placeholder="Time" type='time' onChange={(e)=>{handleChangeTime(e.target.value)}} />
+                    <InputStyle disableUnderline placeholder="Time" type='time' onChange={(e) => { handleChangeTime(e.target.value) }} />
 
                     <Editor
                         simple
@@ -156,9 +162,12 @@ export default function Mail() {
                     />
 
                     <Divider />
-
                     <Box sx={{ py: 2, px: 3, display: 'flex', alignItems: 'center' }}>
-                        <LoadingButton variant="contained" onClick={(e)=>{onSubmitss()}}>Send</LoadingButton>
+                        <FormControlLabel control={<Checkbox onChange={(e) => { setAgentMail(e.target.checked) }} />} label="Agent" />
+                        <FormControlLabel control={<Checkbox onChange={(e) => { setSaleMail(e.target.checked) }} />} label="Seller" />
+                    </Box>
+                    <Box sx={{ py: 2, px: 3, display: 'flex', alignItems: 'center' }}>
+                        <LoadingButton variant="contained" onClick={(e) => { onSubmitss() }}>Send</LoadingButton>
                     </Box>
                 </RootStyle>
             </Container>

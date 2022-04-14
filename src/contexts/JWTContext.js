@@ -10,11 +10,12 @@ const initialState = {
   isAuthenticated: false,
   isInitialized: false,
   user: null,
-  agents: null,
-  agent: null,
-  salePersons: null,
+  agents: [],
+  agent: [],
+  salePersons: [],
   notif:[],
-  packages:[]
+  packages:[],
+  coupon:[]
 };
 
 const handlers = {
@@ -103,7 +104,15 @@ const handlers = {
       message,
       packages
     };
-  }
+  },
+  ALLCUP: (state, action) => {
+    const { message, coupon } = action.payload;
+    return {
+      ...state,
+      message,
+      coupon
+    };
+  },
 };
 
 const reducer = (state, action) => (handlers[action.type] ? handlers[action.type](state, action) : state);
@@ -121,6 +130,7 @@ const AuthContext = createContext({
   getallsaleman: () => Promise.resolve(),
   getallnoti: () => Promise.resolve(),
   getallsalePack: () => Promise.resolve(),
+  getallcupon: () => Promise.resolve(),
 });
 
 // ----------------------------------------------------------------------
@@ -292,6 +302,17 @@ function AuthProvider({ children }) {
       },
     });
   }
+  const getallcupon = async () => {
+    const response = await axios.get(`api/coupon/all`);
+    const { message, coupon } = response.data;
+    dispatch({
+      type: 'ALLCUP',
+      payload: {
+        message,
+        coupon,
+      },
+    });
+  }
 
 
 
@@ -317,7 +338,8 @@ function AuthProvider({ children }) {
         getagentdetail,
         getallsaleman,
         getallnoti,
-        getallsalePack
+        getallsalePack,
+        getallcupon
       }}
     >
       {children}

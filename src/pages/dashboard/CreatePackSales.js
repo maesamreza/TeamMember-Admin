@@ -9,7 +9,7 @@ import Page from '../../components/Page';
 import SalePackages from "../../sections/@dashboard/agentApproval/packforSales"
 // ----------------------------------------------------------------------
 
-export default function SalePackagesTable() {
+export default function CreateCoupons() {
   const theme = useTheme();
   const { themeStretch } = useSettings();
 

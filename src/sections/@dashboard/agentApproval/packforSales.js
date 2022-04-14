@@ -324,7 +324,7 @@ export default function SalePackages() {
                 open={open2}
             >
                 <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-                    Update Licence
+                    Add Licence
                 </BootstrapDialogTitle>
                 <DialogContent dividers>
                     <InputStyle value={PackName} label='Name' onChange={(e) => { setPackName(e.target.value) }} />

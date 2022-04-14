@@ -28,7 +28,7 @@ import {
     Select,
     Box,
     Divider,
-
+    FormControlLabel,
 } from '@mui/material';
 import MUIDataTable from "mui-datatables";
 import { LoadingButton } from '@mui/lab';
@@ -70,7 +70,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     },
     '& .MuiDialogActions-root': {
         padding: theme.spacing(1),
-    },
+    }, background: '#000'
 }));
 
 const RootStyle = styled('div')(({ theme }) => ({
@@ -217,12 +217,19 @@ export default function MailTable() {
                 filter: true,
                 sort: true,
                 customBodyRender: (value, row) => {
-
+                    if (value !== "null") {
+                        return (
+                            <>
+                                {JSON.parse(value).join(',')}
+                            </>
+                        )
+                    }
                     return (
                         <>
-                            {JSON.parse(value).join(',')}
+                            Not Assign
                         </>
-                    );
+                    )
+
                 }
             },
         },
@@ -236,7 +243,7 @@ export default function MailTable() {
 
                     return (
                         <>
-                            <Input value={value} type='time' readOnly/>
+                            <Input value={value} type='time' readOnly />
                         </>
                     );
                 }
@@ -284,6 +291,8 @@ export default function MailTable() {
     const [day, setDay] = useState('');
     const [time, setTime] = useState('');
     const [messsage, setMessage] = useState('');
+    const [AgentMail, setAgentMail] = useState(false);
+    const [SaleMail, setSaleMail] = useState(false);
     const handleChangeDay = (value) => {
         setDay(value);
     };
@@ -299,8 +308,12 @@ export default function MailTable() {
         formData.append("day", day)
         formData.append("time", time)
         formData.append("message", messsage)
-        formData.append("send[]", 'agent')
-        formData.append("send[]", 'seller')
+        if (AgentMail) {
+            formData.append("send[]", 'agent')
+        }
+        if (SaleMail) {
+            formData.append("send[]", 'seller')
+        }
 
         const response = await axios.post(`api/admin/update/notification/${id}`, formData);
         const { message } = response.data;
@@ -381,6 +394,7 @@ export default function MailTable() {
                         height: 60,
                         display: 'flex',
                         alignItems: 'center',
+
                     }}
                 >
                     <Typography variant="h6">New Message</Typography>
@@ -406,7 +420,10 @@ export default function MailTable() {
                         flexGrow: 1,
                     }}
                 />
-
+                <Box sx={{ py: 2, px: 3, display: 'flex', alignItems: 'center' }}>
+                    <FormControlLabel control={<Checkbox onChange={(e) => { setAgentMail(e.target.checked) }} />} label="Agent" />
+                    <FormControlLabel control={<Checkbox onChange={(e) => { setSaleMail(e.target.checked) }} />} label="Seller" />
+                </Box>
                 <Divider />
 
 
@@ -414,7 +431,7 @@ export default function MailTable() {
             </DialogContent>
             <DialogActions>
                 <Button autoFocus onClick={(e) => { onSubmitss() }}>
-                   Update Mail
+                    Update Mail
                 </Button>
             </DialogActions>
         </BootstrapDialog>
