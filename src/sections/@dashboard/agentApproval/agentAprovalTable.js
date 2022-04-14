@@ -221,7 +221,7 @@ export default function AgentApproval() {
                                 </LoadingButton>
                                 :
                                 <LoadingButton size="small" variant="outlined" style={{ margin: '10px' }} onClick={(e) => { AgentID(row.rowData[0]) }} >
-                                    Apporve
+                                    Approve
                                 </LoadingButton>}
                             <LoadingButton size="small" variant="outlined" onClick={(e) => { AgentViewID(row.rowData[0]) }}  >
                                 View

@@ -192,7 +192,7 @@ export default function SalesApproval() {
                                 </LoadingButton>
                                 :
                                 <LoadingButton size="small" variant="contained" style={{ margin: '10px' }} onClick={(e) => { SalePersonID(row.rowData[0]) }} >
-                                    Apporve
+                                    Approve
                                 </LoadingButton>}
                             
                         </>
