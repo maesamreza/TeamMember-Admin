@@ -291,7 +291,7 @@ function AuthProvider({ children }) {
       },
     });
   }
-  const getallsalePack = async (ID) => {
+  const getallsalePack = async () => {
     const response = await axios.get(`api/agent/license/all/package`);
     const { message, packages } = response.data;
     dispatch({

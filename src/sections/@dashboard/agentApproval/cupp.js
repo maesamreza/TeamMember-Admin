@@ -122,6 +122,7 @@ export default function Salecoupon() {
 
     }, [])
 
+    console.log(useAuth())
 
     // const AgentViewID = async (ID) => {
     //     localStorage.setItem('AgentViewID', ID)

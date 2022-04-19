@@ -203,7 +203,7 @@ export default function AgentApproval() {
                 customBodyRender: (value, row) => {
                     return (
                         <>
-                            {row.rowData[3] === 1 ? 'Aprrove' : 'Deactive'}
+                            {row.rowData[3] === 1 ? 'Approve' : 'Deactive'}
                         </>
                     );
                 }
