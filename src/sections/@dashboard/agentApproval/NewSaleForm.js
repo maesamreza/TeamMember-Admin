@@ -34,7 +34,7 @@ export default function AddNewForm() {
         confirmpassword: Yup.string().required('Confirm Password is required'),
         picture: Yup.mixed().test('required', 'Avatar is required', (value) => value !== ''),
         city: Yup.string().required('Password is required'),
-        country: Yup.string().required('Password is required'),
+        // country: Yup.string().required('Password is required'),
         phone: Yup.string().required('Password is required'),
         state: Yup.string().required('Confirm Password is required'),
         agentId: Yup.string().required('Confirm Password is required'),
@@ -49,7 +49,7 @@ export default function AddNewForm() {
             confirmpassword: '',
             picture: '',
             city: '',
-            country: '',
+            // country: '',
             phone: '',
             state: '',
             agentId: AgentID,
@@ -82,7 +82,7 @@ export default function AddNewForm() {
             formData.append("confirmpassword", data.confirmpassword)
             formData.append("picture", data.picture)
             formData.append("city", data.city)
-            formData.append("country", data.country)
+            // formData.append("country", data.country)
             formData.append("phone", data.phone)
             formData.append("state", data.state)
             formData.append("agentId", data.agentId)
@@ -161,7 +161,7 @@ export default function AddNewForm() {
                             <RHFTextField name="password" label="Password" type='password' />
                             <RHFTextField name="confirmpassword" label="Confirm Password" type='password' />
                             <RHFTextField name="city" label="City" />
-                            <RHFTextField name="country" label="Country" />
+                            {/* <RHFTextField name="country" label="Country" /> */}
                             <RHFTextField name="state" label="State" />
                             <RHFTextField name="phone" label="Phone" />
                            
