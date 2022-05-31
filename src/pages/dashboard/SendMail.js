@@ -36,17 +36,6 @@ export default function Mail() {
     return (
         <Page title="Mail">
             <Container maxWidth={themeStretch ? false : 'xl'}>
-                <HeaderBreadcrumbs
-                    heading="Mail"
-                    links={[
-                        {
-                            name: 'Dashboard',
-                            href: PATH_DASHBOARD.root,
-                        },
-                        { name: 'Mail' },
-                    ]}
-                />
-
                 {/* <SendMail /> */}
                 <MailTable />
             </Container>

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 // form
@@ -77,8 +77,21 @@ export default function AddNewForm() {
             console.error(error);
         }
     };
-
-
+    useEffect(()=>{
+        State()
+    },[])
+    const [state, setState] = useState([])
+    const [Show2, setShow2] = useState(false)
+    const State = async () => {
+        try {
+            const response = await axios.get(`api/get/states`);
+            const { states } = response.data;
+            setState(states)
+            setShow2(true)
+        } catch (error) {
+            console.error(error);
+        }
+    }
     return (
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={3}>
@@ -98,7 +111,15 @@ export default function AddNewForm() {
                         >
                             <RHFTextField name="firstName" label="First Name" />
                             <RHFTextField name="lastName" label="Last Name" />
-                            <RHFTextField name="state" label="State/Region" />
+                            <RHFSelect name="state" label="State" >
+                                <option value='' />
+                                {!Show2 ? <option value='' >No State Found</option> :
+                                    state.map((option) => (
+                                        <option key={option.id} value={option.state}>
+                                            {option.state} ({option.code})
+                                        </option>
+                                    ))}
+                            </RHFSelect>
                             <RHFTextField name="email" label="Email Address" />
                             <RHFTextField name="password" label="password" type='password' />
                             <RHFTextField name="confirmpassword" label="Confirm Password" type='password' />

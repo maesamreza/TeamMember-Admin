@@ -323,7 +323,7 @@ export default function SalePackages() {
                 aria-labelledby="customized-dialog-title"
                 open={open2}
             >
-                <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+                <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose2}>
                     Add Licence
                 </BootstrapDialogTitle>
                 <DialogContent dividers>
