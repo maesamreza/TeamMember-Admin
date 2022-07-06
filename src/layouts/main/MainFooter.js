@@ -12,7 +12,7 @@ import SocialsButton from '../../components/SocialsButton';
 
 const LINKS = [
   {
-    headline: 'Minimal',
+    headline: 'TeamTracker',
     children: [
       { name: 'About us', href: PATH_PAGE.about },
       { name: 'Contact us', href: PATH_PAGE.contact },
@@ -29,8 +29,8 @@ const LINKS = [
   {
     headline: 'Contact',
     children: [
-      { name: 'support@minimals.cc', href: '#' },
-      { name: 'Los Angeles, 359  Hidden Valley Road', href: '#' },
+      { name: 'afk', href: '#' },
+      { name: 'Los Anasdkj Hidden Valley Road', href: '#' },
     ],
   },
 ];

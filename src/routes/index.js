@@ -148,7 +148,11 @@ export default function Router() {
       path: '/',
       element: <MainLayout />,
       children: [
-        { element: <HomePage />, index: true },
+        { element: (
+          <GuestGuard>
+            < Login/>
+          </GuestGuard>
+        ), index: true },
         { path: 'about-us', element: <About /> },
         { path: 'contact-us', element: <Contact /> },
         { path: 'faqs', element: <Faqs /> },
