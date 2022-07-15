@@ -283,10 +283,10 @@ export default function Salecoupon() {
             <Container maxWidth={themeStretch ? false : 'lg'}>
                 <Grid>
                     <HeaderBreadcrumbs
-                        heading="Cuopons"
+                        heading="Coupons"
                         links={[
                             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-                            { name: 'Cuopons' },
+                            { name: 'Coupons' },
                         ]}
                         action={
                             <Button
@@ -302,7 +302,7 @@ export default function Salecoupon() {
                     <Card>
                         {data !== null ?
                             <MUIDataTable
-                                title={"Cuopons"}
+                                title={"Coupons"}
                                 data={data}
                                 columns={columns}
                                 options={options}
@@ -317,7 +317,7 @@ export default function Salecoupon() {
                 open={open}
             >
                 <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-                    Update Cuopons
+                    Update Coupons
                 </BootstrapDialogTitle>
                 <DialogContent dividers>
                     <FormControl fullWidth sx={{ mb: 3 }}>
@@ -338,7 +338,7 @@ export default function Salecoupon() {
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus onClick={(e) => { UpdateCupon() }}>
-                        Update Cuopons
+                        Update Coupons
                     </Button>
                 </DialogActions>
             </BootstrapDialog>
@@ -348,7 +348,7 @@ export default function Salecoupon() {
                 open={open2}
             >
                 <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-                    Add Cuopons
+                    Add Coupons
                 </BootstrapDialogTitle>
                 <DialogContent dividers>
                     <FormControl fullWidth sx={{ mb: 3 }}>
@@ -369,7 +369,7 @@ export default function Salecoupon() {
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus onClick={(e) => { CreateCup() }}>
-                        Add Cuopons
+                        Add Coupons
                     </Button>
                 </DialogActions>
             </BootstrapDialog>
@@ -379,7 +379,7 @@ export default function Salecoupon() {
                 open={open3}
             >
                 <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-                    Mail Cuopons
+                    Mail Coupons
                 </BootstrapDialogTitle>
                 <DialogContent dividers>
                     <FormControl fullWidth >
@@ -388,7 +388,7 @@ export default function Salecoupon() {
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus variant='outlined' onClick={(e) => { MailCupon() }}>
-                        Mail Cuopons
+                        Mail Coupons
                     </Button>
                 </DialogActions>
             </BootstrapDialog>

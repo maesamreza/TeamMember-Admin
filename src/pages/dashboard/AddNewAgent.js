@@ -5,18 +5,7 @@ import { Container, Grid } from '@mui/material';
 import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
-// sections
-import {
-  EcommerceWelcome,
-  EcommerceNewProducts,
-  EcommerceYearlySales,
-  EcommerceBestSalesman,
-  EcommerceSaleByGender,
-  EcommerceWidgetSummary,
-  EcommerceSalesOverview,
-  EcommerceLatestProducts,
-  EcommerceCurrentBalance,
-} from '../../sections/@dashboard/general/e-commerce';
+
 import AddNewAgentForm from '../../sections/@dashboard/agentApproval/NewAgentForm';
 // ----------------------------------------------------------------------
 

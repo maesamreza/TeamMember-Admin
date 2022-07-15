@@ -44,6 +44,7 @@ export default function GeneralApp() {
   useEffect(() => {
     SellerData();
     AgentData();
+    Data();
   }, [])
   const [RawNewAutoQuotesTotal, setRawNewAutoQuotesTotal] = useState(0)
   const [RawNewAutoWrittenTotal, setRawNewAutoWrittenTotal] = useState(0)
@@ -53,8 +54,8 @@ export default function GeneralApp() {
   const [HealthApplicationsTotal, setHealthApplicationsTotal] = useState(0)
   const [AnnualizedHealthPremiumTotal, setAnnualizedHealthPremiumTotal] = useState(0)
   const [OtherFinancialServicesTotal, setOtherFinancialServicesTotal] = useState(0)
-  const [Agent,SetAgent] = useState(0)
-  const [Seller,SetSeller] = useState(0)
+  const [Agent, SetAgent] = useState(0)
+  const [Seller, SetSeller] = useState(0)
   const AgentData = async (e) => {
 
     const response = await axios.get(`api/get/agents?getcount`);
@@ -74,7 +75,7 @@ export default function GeneralApp() {
   }
   const SellerData = async (e) => {
 
-    const response = await axios.get(`/all/sellers/rating?getcount`);
+    const response = await axios.get(`api/all/sellers/rating?getcount`);
     const { total } = response.data
     SetSeller(total)
     // const { RawNewAutoQuotesTotal, RawNewAutoWrittenTotal, TotalFireWrittenTotal, LifeApplicationsTotal, AnnualizedLifePremiumTotal, HealthApplicationsTotal, AnnualizedHealthPremiumTotal, OtherFinancialServicesTotal } = response.data.reports;
@@ -87,6 +88,24 @@ export default function GeneralApp() {
     // setHealthApplicationsTotal(HealthApplicationsTotal)
     // setAnnualizedHealthPremiumTotal(AnnualizedHealthPremiumTotal)
     // setOtherFinancialServicesTotal(OtherFinancialServicesTotal)
+
+  }
+
+  const Data = async (e) => {
+
+    const response = await axios.get(`api/totalof/all/sellers/reports`);
+    // const { total } = response.data
+    // SetSeller(total)
+    const { RawNewAutoQuotesTotal, RawNewAutoWrittenTotal, TotalFireWrittenTotal, LifeApplicationsTotal, AnnualizedLifePremiumTotal, HealthApplicationsTotal, AnnualizedHealthPremiumTotal, OtherFinancialServicesTotal } = response.data.TotalOfSalePersonRports;
+    console.log(response);
+    setRawNewAutoQuotesTotal(RawNewAutoQuotesTotal)
+    setRawNewAutoWrittenTotal(RawNewAutoWrittenTotal)
+    setTotalFireWrittenTotal(TotalFireWrittenTotal)
+    setLifeApplicationsTotal(LifeApplicationsTotal)
+    setAnnualizedLifePremiumTotal(AnnualizedLifePremiumTotal)
+    setHealthApplicationsTotal(HealthApplicationsTotal)
+    setAnnualizedHealthPremiumTotal(AnnualizedHealthPremiumTotal)
+    setOtherFinancialServicesTotal(OtherFinancialServicesTotal)
 
   }
   return (
@@ -114,7 +133,7 @@ export default function GeneralApp() {
             <EcommerceWidgetSummary
               title="Raw New Auto Quotes"
               // percent={2.6}
-              total={0}
+              total={RawNewAutoQuotesTotal}
               chartColor={theme.palette.primary.main}
             />
           </Grid>
@@ -123,7 +142,7 @@ export default function GeneralApp() {
             <EcommerceWidgetSummary
               title="Raw New Auto Written"
               // percent={-0.1}
-              total={0}
+              total={RawNewAutoWrittenTotal}
               chartColor={theme.palette.chart.main}
             />
           </Grid>
@@ -132,7 +151,7 @@ export default function GeneralApp() {
             <EcommerceWidgetSummary
               title="Total Fire Written"
               // percent={0.6}
-              total={0}
+              total={TotalFireWrittenTotal}
               chartColor={theme.palette.chart.main}
             />
           </Grid>
@@ -141,7 +160,7 @@ export default function GeneralApp() {
             <EcommerceWidgetSummary
               title="Life Applications"
               // percent={2.6}
-              total={0}
+              total={LifeApplicationsTotal}
               chartColor={theme.palette.primary.main}
 
             />
@@ -151,7 +170,7 @@ export default function GeneralApp() {
             <EcommerceWidgetSummary
               title="Annualized Life Premium"
               // percent={2.6}
-              total={0}
+              total={AnnualizedLifePremiumTotal}
               chartColor={theme.palette.primary.main}
             />
           </Grid>
@@ -160,7 +179,7 @@ export default function GeneralApp() {
             <EcommerceWidgetSummary
               title="Health Applications"
               // percent={2.6}
-              total={0}
+              total={HealthApplicationsTotal}
               chartColor={theme.palette.primary.main}
             />
           </Grid>
@@ -169,7 +188,7 @@ export default function GeneralApp() {
             <EcommerceWidgetSummary
               title="Annualized Health Premium"
               // percent={2.6}
-              total={0}
+              total={AnnualizedHealthPremiumTotal}
               chartColor={theme.palette.primary.main}
             />
           </Grid>
@@ -178,7 +197,7 @@ export default function GeneralApp() {
             <EcommerceWidgetSummary
               title="Other Financial Services"
               // percent={2.6}
-              total={0}
+              total={OtherFinancialServicesTotal}
               chartColor={theme.palette.primary.main}
             />
           </Grid>
